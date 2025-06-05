@@ -4,7 +4,6 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ActivatedRoute, Router } from '@angular/router';
 import { Character } from '../../models/character';
 import { CharacterService } from '../../services/character.service';
-
 @Component({
   selector: 'app-character-form',
   standalone: true,
@@ -81,7 +80,7 @@ export class CharacterFormComponent implements OnInit {
     const character: Character = this.characterForm.value;
 
     const request = this.isEditMode && this.characterId
-      ? this.characterService.updateCharacter(this.characterId, character)
+      ? this.characterService.updateCharacter(character)
       : this.characterService.createCharacter(character);
 
     request.subscribe({
