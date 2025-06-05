@@ -1,19 +1,22 @@
-<header>
-  <div class="container">
-    <h1>{{ title }}</h1>
-    <nav>
-      <a routerLink="/characters" routerLinkActive="active">Characters</a>
-      <a routerLink="/about" routerLinkActive="active">About</a>
-    </nav>
-  </div>
-</header>
+<div class="fantasy-app-container">
+  <header class="fantasy-header">
+    <div class="header-content">
+      <h1 class="app-title">The Adventurer's Codex</h1>
+      <nav class="main-nav">
+        <a routerLink="/" class="nav-link">Home</a>
+        <a routerLink="/characters" class="nav-link">Characters</a>
+        <a routerLink="/characters/create" class="nav-link">Create</a>
+      </nav>
+    </div>
+    <div class="header-ornament"></div>
+  </header>
 
-<main class="container">
-  <router-outlet></router-outlet>
-</main>
+  <main class="fantasy-content">
+    <router-outlet></router-outlet>
+  </main>
 
-<footer>
-  <div class="container">
-    <p>&copy; 2025 DwarvenCodeSmith - Fantasy Character Management</p>
-  </div>
-</footer>
+  <footer class="fantasy-footer">
+    <div class="footer-ornament"></div>
+    <p>© 2025 Dwarven Code Smith</p>
+  </footer>
+</div>
