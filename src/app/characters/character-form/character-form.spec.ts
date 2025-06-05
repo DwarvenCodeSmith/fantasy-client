@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CharacterForm } from './character-form';
+import { CharacterFormComponent } from './character-form.component';
 
 describe('CharacterForm', () => {
-  let component: CharacterForm;
-  let fixture: ComponentFixture<CharacterForm>;
+  let component: CharacterFormComponent;
+  let fixture: ComponentFixture<CharacterFormComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CharacterForm]
+      imports: [CharacterFormComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(CharacterForm);
+    fixture = TestBed.createComponent(CharacterFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
