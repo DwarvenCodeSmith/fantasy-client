@@ -1,0 +1,19 @@
+<header>
+  <div class="container">
+    <h1>{{ title }}</h1>
+    <nav>
+      <a routerLink="/characters" routerLinkActive="active">Characters</a>
+      <a routerLink="/about" routerLinkActive="active">About</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <router-outlet></router-outlet>
+</main>
+
+<footer>
+  <div class="container">
+    <p>&copy; 2025 DwarvenCodeSmith - Fantasy Character Management</p>
+  </div>
+</footer>

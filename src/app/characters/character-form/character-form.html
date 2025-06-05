@@ -1,1 +1,120 @@
-<p>character-form works!</p>
+<div class="character-form-container">
+  <h2 class="form-title">{{ isEditMode ? 'Edit Character' : 'Create New Character' }}</h2>
+  
+  <div *ngIf="loading" class="loading">
+    <div class="spinner"></div>
+    <p>Loading character data...</p>
+  </div>
+  
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+    <button (click)="loadCharacter(characterId!)" *ngIf="isEditMode">Retry</button>
+  </div>
+  
+  <form [formGroup]="characterForm" (ngSubmit)="onSubmit()" *ngIf="!loading">
+    <div class="form-group">
+      <label for="name">Character Name*</label>
+      <input 
+        type="text" 
+        id="name" 
+        formControlName="name" 
+        placeholder="Enter character name"
+        [ngClass]="{'invalid': hasError('name', 'required') || hasError('name', 'minlength') || hasError('name', 'maxlength')}"
+      >
+      <div class="validation-error" *ngIf="hasError('name', 'required')">
+        Name is required
+      </div>
+      <div class="validation-error" *ngIf="hasError('name', 'minlength')">
+        Name must be at least 2 characters
+      </div>
+      <div class="validation-error" *ngIf="hasError('name', 'maxlength')">
+        Name cannot exceed 50 characters
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label for="class">Class*</label>
+      <select 
+        id="class" 
+        formControlName="class"
+        [ngClass]="{'invalid': hasError('class', 'required')}"
+      >
+        <option *ngFor="let classOption of classOptions" [value]="classOption">
+          {{classOption}}
+        </option>
+      </select>
+      <div class="validation-error" *ngIf="hasError('class', 'required')">
+        Class is required
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label for="level">Level*</label>
+      <input 
+        type="number" 
+        id="level" 
+        formControlName="level" 
+        min="1" 
+        max="100"
+        [ngClass]="{'invalid': hasError('level', 'required') || hasError('level', 'min') || hasError('level', 'max')}"
+      >
+      <div class="validation-error" *ngIf="hasError('level', 'required')">
+        Level is required
+      </div>
+      <div class="validation-error" *ngIf="hasError('level', 'min')">
+        Level must be at least 1
+      </div>
+      <div class="validation-error" *ngIf="hasError('level', 'max')">
+        Level cannot exceed 100
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label for="weapon">Weapon*</label>
+      <input 
+        type="text" 
+        id="weapon" 
+        formControlName="weapon" 
+        placeholder="Enter weapon name"
+        [ngClass]="{'invalid': hasError('weapon', 'required') || hasError('weapon', 'minlength')}"
+      >
+      <div class="validation-error" *ngIf="hasError('weapon', 'required')">
+        Weapon is required
+      </div>
+      <div class="validation-error" *ngIf="hasError('weapon', 'minlength')">
+        Weapon name must be at least 2 characters
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label for="race">Race</label>
+      <select id="race" formControlName="race">
+        <option *ngFor="let raceOption of raceOptions" [value]="raceOption">
+          {{raceOption}}
+        </option>
+      </select>
+    </div>
+    
+    <div class="form-group full-width">
+      <label for="backstory">Backstory</label>
+      <textarea 
+        id="backstory" 
+        formControlName="backstory" 
+        placeholder="Enter character backstory"
+        rows="5"
+      ></textarea>
+    </div>
+    
+    <div class="form-actions">
+      <button type="button" class="btn secondary" (click)="cancel()">Cancel</button>
+      <button 
+        type="submit" 
+        class="btn primary" 
+        [disabled]="submitting || characterForm.invalid"
+      >
+        <span *ngIf="submitting" class="spinner-inline"></span>
+        {{ isEditMode ? 'Update Character' : 'Create Character' }}
+      </button>
+    </div>
+  </form>
+</div>

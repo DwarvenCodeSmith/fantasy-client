@@ -1,1 +1,50 @@
-<p>character-list works!</p>
+<div class="character-list-container">
+  <header class="list-header">
+    <h2>Fantasy Characters</h2>
+    <div class="actions">
+      <button class="btn primary" [routerLink]="['new']">Add Character</button>
+      <button class="btn secondary" (click)="generateCharacters()">Generate Random</button>
+    </div>
+  </header>
+
+  <div *ngIf="loading" class="loading">
+    <div class="spinner"></div>
+    <p>Loading characters...</p>
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+    <button (click)="loadCharacters()">Retry</button>
+  </div>
+
+  <div *ngIf="!loading && !error && characters.length === 0" class="empty-state">
+    <p>No characters found</p>
+    <button class="btn primary" [routerLink]="['new']">Create your first character</button>
+    <button class="btn secondary" (click)="generateCharacters()">Generate some characters</button>
+  </div>
+
+  <div class="character-grid" *ngIf="characters.length > 0">
+    <div class="character-card" *ngFor="let character of characters">
+      <div class="card-header">
+        <h3>{{ character.name }}</h3>
+        <div class="character-level">Level {{ character.level }}</div>
+      </div>
+      <div class="card-body">
+        <div class="character-detail">
+          <span class="label">Class:</span> {{ character.class }}
+        </div>
+        <div class="character-detail">
+          <span class="label">Weapon:</span> {{ character.weapon }}
+        </div>
+        <div class="character-detail" *ngIf="character.race">
+          <span class="label">Race:</span> {{ character.race }}
+        </div>
+      </div>
+      <div class="card-actions">
+        <button class="btn small" [routerLink]="[character.id]">View</button>
+        <button class="btn small secondary" [routerLink]="[character.id, 'edit']">Edit</button>
+        <button class="btn small danger" (click)="deleteCharacter(character.id)">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>

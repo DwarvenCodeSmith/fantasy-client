@@ -1,1 +1,52 @@
-<p>character-detail works!</p>
+<div class="character-detail-container">
+  <div *ngIf="loading" class="loading">
+    <div class="spinner"></div>
+    <p>Loading character details...</p>
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+    <button (click)="loadCharacter(character?.id!)" *ngIf="character?.id">Retry</button>
+    <button [routerLink]="['/characters']">Back to List</button>
+  </div>
+
+  <div *ngIf="!loading && !error && character" class="character-card">
+    <div class="card-header">
+      <h2>{{ character.name }}</h2>
+      <div class="header-actions">
+        <button class="btn secondary" [routerLink]="['/characters', character.id, 'edit']">Edit</button>
+        <button class="btn danger" (click)="deleteCharacter()">Delete</button>
+      </div>
+    </div>
+    
+    <div class="card-body">
+      <div class="character-stats">
+        <div class="stat-item">
+          <span class="stat-label">Class</span>
+          <span class="stat-value">{{ character.class }}</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Level</span>
+          <span class="stat-value">{{ character.level }}</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Weapon</span>
+          <span class="stat-value">{{ character.weapon }}</span>
+        </div>
+        <div class="stat-item" *ngIf="character.race">
+          <span class="stat-label">Race</span>
+          <span class="stat-value">{{ character.race }}</span>
+        </div>
+      </div>
+
+      <div class="character-backstory" *ngIf="character.backstory">
+        <h3>Backstory</h3>
+        <p>{{ character.backstory }}</p>
+      </div>
+    </div>
+
+    <div class="card-footer">
+      <button class="btn primary" [routerLink]="['/characters']">Back to List</button>
+    </div>
+  </div>
+</div>
