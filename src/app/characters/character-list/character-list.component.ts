@@ -16,11 +16,14 @@ export class CharacterListComponent implements OnInit {
   loading: boolean = true;
   error: string | null = null;
 
-  constructor(private characterService: CharacterService) {}
+constructor(private characterService: CharacterService) {
+  console.log('CharacterListComponent constructed');
+}
 
-  ngOnInit(): void {
-    this.loadCharacters();
-  }
+ngOnInit(): void {
+  console.log('CharacterListComponent ngOnInit');
+  this.loadCharacters();
+}
 
   loadCharacters(): void {
     this.loading = true;

@@ -19,7 +19,7 @@ export interface Character {
 })
 export class CharacterService {
   // Updated URL without the /api prefix
-  private apiUrl = '/characters';
+  private apiUrl = '/api/characters';
 
   constructor(private http: HttpClient) { }
 
