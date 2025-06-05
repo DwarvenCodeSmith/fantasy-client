@@ -1,8 +1,9 @@
 {
-  "/characters": {
-    "target": "http://localhost:5122",
+  "/character-api": {
+    "target": "http://your-backend-url",
     "secure": false,
-    "changeOrigin": true,
-    "logLevel": "debug"
+    "pathRewrite": {
+      "^/character-api": "/characters"
+    }
   }
 }

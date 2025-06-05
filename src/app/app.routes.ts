@@ -1,11 +1,11 @@
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'characters', pathMatch: 'full' },
+  { path: '', redirectTo: 'fantasy-characters', pathMatch: 'full' },
   { 
-    path: 'characters',
+    path: 'fantasy-characters',
     loadChildren: () => import('./characters/character.routes')
       .then(mod => mod.CHARACTER_ROUTES)
   },
-  { path: '**', redirectTo: 'characters' }
+  { path: '**', redirectTo: 'fantasy-characters' }
 ];
