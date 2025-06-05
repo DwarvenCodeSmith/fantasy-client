@@ -1,11 +1,8 @@
 {
-  "/api": {
+  "/characters": {
     "target": "http://localhost:5122",
     "secure": false,
     "changeOrigin": true,
-    "pathRewrite": {
-      "^/api": ""
-    },
     "logLevel": "debug"
   }
 }

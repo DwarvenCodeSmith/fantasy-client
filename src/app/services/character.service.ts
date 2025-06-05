@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 
 // Define the Character interface
 export interface Character {
@@ -18,13 +18,16 @@ export interface Character {
   providedIn: 'root'
 })
 export class CharacterService {
-  private apiUrl = '/api/characters'; // Update with your actual API URL
+  // Updated URL without the /api prefix
+  private apiUrl = '/characters';
 
   constructor(private http: HttpClient) { }
 
   getCharacters(): Observable<Character[]> {
+    console.log('Fetching characters from:', this.apiUrl);
     return this.http.get<Character[]>(this.apiUrl)
       .pipe(
+        tap(characters => console.log('Received characters:', characters)),
         catchError(this.handleError('getCharacters', []))
       );
   }
@@ -57,7 +60,7 @@ export class CharacterService {
       );
   }
 
- // New method to generate random characters
+  // New method to generate random characters
   generateRandomCharacters(count: number): Observable<Character[]> {
     return this.http.get<Character[]>(`${this.apiUrl}/random?count=${count}`)
       .pipe(
@@ -98,16 +101,23 @@ export class CharacterService {
       });
     }
 
+    console.log('Generated local characters:', randomCharacters);
     return of(randomCharacters);
   }
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-      console.error(`${operation} failed: ${error.message}`);
+      console.error(`${operation} failed:`, error);
       
       // If the error is from the random characters endpoint, fall back to local generation
       if (operation === 'generateRandomCharacters' && Array.isArray(result) && result.length === 0) {
         console.log('Falling back to locally generated characters');
+        return this.generateRandomCharactersLocally(5) as Observable<T>;
+      }
+      
+      // If we get an error trying to load characters, generate some locally
+      if (operation === 'getCharacters' && Array.isArray(result)) {
+        console.log('Loading characters failed. Generating locally...');
         return this.generateRandomCharactersLocally(5) as Observable<T>;
       }
       

@@ -24,16 +24,24 @@ export class CharacterListComponent implements OnInit {
 
   loadCharacters(): void {
     this.loading = true;
+    this.error = null;
+    
+    console.log('Loading characters...');
     this.characterService.getCharacters()
       .subscribe({
         next: (data) => {
+          console.log('Characters loaded:', data);
           this.characters = data;
           this.loading = false;
         },
         error: (err) => {
-          this.error = 'Failed to load characters';
+          console.error('Error loading characters:', err);
+          this.error = 'Failed to load characters. Please try again.';
           this.loading = false;
-          console.error(err);
+        },
+        complete: () => {
+          console.log('Character loading complete');
+          this.loading = false;
         }
       });
   }
@@ -57,15 +65,22 @@ export class CharacterListComponent implements OnInit {
 
   generateCharacters(): void {
     this.loading = true;
+    this.error = null;
+    
+    console.log('Generating random characters...');
     this.characterService.generateRandomCharacters(5)
       .subscribe({
         next: (data) => {
+          console.log('Random characters generated:', data);
           this.characters = [...this.characters, ...data];
           this.loading = false;
         },
         error: (err) => {
           console.error('Error generating characters', err);
           this.error = 'Failed to generate characters';
+          this.loading = false;
+        },
+        complete: () => {
           this.loading = false;
         }
       });
