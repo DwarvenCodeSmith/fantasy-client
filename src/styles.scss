@@ -1,8 +1,7 @@
-/* You can add global styles to this file, and also import other style files */
-@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Cinzel:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Cinzel:wght@400;600;700&display=swap');
 @import 'styles/theme.scss';
 
-// Global styles
+/* Global styles */
 body {
   margin: 0;
   padding: 0;
@@ -12,7 +11,7 @@ body {
   font-family: $font-text;
 }
 
-// Fallback if image isn't available
+// Fallback with dark gradient
 body::before {
   content: '';
   position: fixed;
@@ -20,29 +19,69 @@ body::before {
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, #0a0a1a 0%, #1a1025 50%, #221a30 100%);
+  background: linear-gradient(135deg, $bg-darker 0%, $bg-dark 50%, #2a1f3b 100%);
   z-index: -1;
 }
 
+// Typography with proper contrast
 h1, h2, h3, h4, h5, h6 {
   @include fantasy-heading;
 }
 
-button, .btn {
-  cursor: pointer;
-  &.btn-primary {
-    @include fantasy-button-purple;
+// Light headings for dark backgrounds
+.dark-bg {
+  h1, h2, h3, h4, h5, h6 {
+    @include fantasy-heading-light;
   }
-  &.btn-success {
-    @include fantasy-button-green;
+  
+  p, span, div {
+    @include fantasy-light-text;
   }
 }
 
-// Container layout
+p {
+  @include fantasy-text;
+  margin-bottom: 1rem;
+}
+
+// Button styles
+button, .btn {
+  &.primary {
+    @include fantasy-button-purple;
+  }
+  &.secondary {
+    @include fantasy-button-green;
+  }
+  
+  &:focus-visible {
+    @include focus-outline;
+  }
+}
+
+// Link styling with better contrast
+a {
+  color: $accent-purple;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  
+  &:hover {
+    color: $accent-purple-lighter;
+    text-decoration: underline;
+  }
+  
+  &:focus-visible {
+    @include focus-outline;
+  }
+}
+
 .page-container {
   padding: 2rem;
   max-width: 1200px;
   margin: 0 auto;
+  
+  &.dark-theme {
+    @include fantasy-dark-container;
+  }
 }
 
 .fantasy-card {
@@ -51,43 +90,92 @@ button, .btn {
   margin-bottom: 2rem;
 }
 
-// Fantasy divider
 .divider {
   @include ornamental-divider;
 }
 
-// Forms styling
-.fantasy-form {
-  .form-group {
-    margin-bottom: 1.5rem;
+.form-group {
+  margin-bottom: 1.5rem;
+  
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-family: $font-accent;
+    color: $text-dark;
+    font-weight: 600;
+    font-size: 1.05rem;
+  }
+  
+  &.dark-theme label {
+    color: $text-white;
+  }
+  
+  input, select, textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid $accent-border;
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.9);
+    font-family: $font-text;
+    font-size: 1.05rem;
+    color: $text-dark;
     
-    label {
-      display: block;
-      margin-bottom: 0.5rem;
-      font-family: $font-accent;
-      color: $text-dark;
-      font-weight: 600;
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(93, 53, 160, 0.4);
+      border-color: $accent-purple;
     }
-    
-    input, select, textarea {
-      width: 100%;
-      padding: 0.8rem;
-      border: 1px solid $accent-border;
-      border-radius: 4px;
-      background-color: rgba(255, 255, 255, 0.7);
-      font-family: $font-text;
-      font-size: 1.05rem;
-      
-      &:focus {
-        outline: none;
-        box-shadow: 0 0 0 2px rgba(76, 42, 122, 0.3);
-        border-color: $accent-purple;
-      }
-    }
+  }
+  
+  .help-text {
+    font-size: 0.9rem;
+    margin-top: 0.3rem;
+    color: $text-light;
   }
 }
 
-// Utility classes
+// Application header styling
+.app-name-header {
+  @include app-header;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+/* Utility classes */
 .text-center { text-align: center; }
+.mt-1 { margin-top: 1rem; }
 .mt-2 { margin-top: 2rem; }
+.mt-3 { margin-top: 3rem; }
+.mb-1 { margin-bottom: 1rem; }
 .mb-2 { margin-bottom: 2rem; }
+.mb-3 { margin-bottom: 3rem; }
+.mx-auto { margin-left: auto; margin-right: auto; }
+.p-2 { padding: 2rem; }
+
+.high-contrast {
+  color: #000;
+  background-color: rgba(248, 240, 221, 0.95); 
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2rem;
+  }
+  h2 {
+    font-size: 1.75rem;
+  }
+  p, .form-group label, input, select, textarea {
+    font-size: 1rem;
+  }
+}

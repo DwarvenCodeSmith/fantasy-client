@@ -1,16 +1,28 @@
 // Fantasy theme variables
-$parchment-color: #f5e9d0;
-$parchment-darker: #e8d8b8;
+// High contrast colors
+$parchment-color: #f8f0dd;
+$parchment-darker: #ede1c7;
 $parchment-shadow: rgba(0, 0, 0, 0.5);
-$text-dark: #493118;
-$text-medium: #5c4018;
-$text-light: #725534;
-$accent-purple: #4c2a7a;
-$accent-purple-lighter: #5b32a8;
-$accent-green: #48762a;
-$accent-green-lighter: #5a8c3a;
-$accent-gold: rgba(255, 215, 0, 0.15);
+
+// Text colors with proper contrast
+$text-dark: #111111;
+$text-medium: #222222;
+$text-light: #444444;
+$text-white: #ffffff;
+
+// Accent colors with sufficient contrast
+$accent-purple: #5d35a0;
+$accent-purple-lighter: #6e46b1;
+$accent-green: #4e8930;
+$accent-green-lighter: #5fa040;
+$accent-gold: #ffd700;
+$accent-gold-transparent: rgba(255, 215, 0, 0.25);
 $accent-border: #83663b;
+
+// Background colors
+$bg-dark: #0f0c1a;
+$bg-darker: #090612;
+$bg-header: #1a0f2e;
 
 // Font families
 $font-heading: 'Cinzel Decorative', cursive;
@@ -23,8 +35,9 @@ $font-accent: 'Cinzel', serif;
   background-size: cover;
   border-radius: 8px;
   box-shadow: 0 10px 30px $parchment-shadow,
-              0 0 100px $accent-gold;
+              0 0 100px $accent-gold-transparent;
   position: relative;
+  color: $text-dark;
   
   &::before {
     content: '';
@@ -36,6 +49,7 @@ $font-accent: 'Cinzel', serif;
     background: linear-gradient(to bottom, $parchment-color, $parchment-darker, $parchment-color);
     border-radius: 8px;
     z-index: -1;
+    opacity: 0.95;
   }
 }
 
@@ -50,6 +64,10 @@ $font-accent: 'Cinzel', serif;
   transition: all 0.3s ease;
   overflow: hidden;
   border: none;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1.05rem;
+  letter-spacing: 0.5px;
   
   &::before {
     content: '';
@@ -58,7 +76,7 @@ $font-accent: 'Cinzel', serif;
     left: 5px;
     right: 5px;
     bottom: 5px;
-    border: 1px solid rgba(255, 255, 255, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.5);
     border-radius: 4px;
     transition: all 0.3s ease;
   }
@@ -66,16 +84,16 @@ $font-accent: 'Cinzel', serif;
 
 @mixin fantasy-button-purple {
   @include fantasy-button-base;
-  background: linear-gradient(135deg, #3b275c 0%, $accent-purple 100%);
-  color: #ffffff;
+  background: linear-gradient(135deg, #432d6e 0%, $accent-purple 100%);
+  color: $text-white;
   box-shadow: 0 4px 15px rgba(59, 39, 92, 0.4),
-              inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+              inset 0 0 0 1px rgba(255, 255, 255, 0.3);
   
   &:hover {
     background: linear-gradient(135deg, $accent-purple 0%, $accent-purple-lighter 100%);
     transform: translateY(-3px);
     box-shadow: 0 8px 25px rgba(59, 39, 92, 0.6),
-                inset 0 0 0 1px rgba(255, 255, 255, 0.3);
+                inset 0 0 0 1px rgba(255, 255, 255, 0.4);
   }
   
   &:active {
@@ -87,15 +105,15 @@ $font-accent: 'Cinzel', serif;
 @mixin fantasy-button-green {
   @include fantasy-button-base;
   background: linear-gradient(135deg, #3f5927 0%, $accent-green 100%);
-  color: #ffffff;
+  color: $text-white;
   box-shadow: 0 4px 15px rgba(63, 89, 39, 0.4),
-              inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+              inset 0 0 0 1px rgba(255, 255, 255, 0.3);
   
   &:hover {
     background: linear-gradient(135deg, $accent-green 0%, $accent-green-lighter 100%);
     transform: translateY(-3px);
     box-shadow: 0 8px 25px rgba(63, 89, 39, 0.6),
-                inset 0 0 0 1px rgba(255, 255, 255, 0.3);
+                inset 0 0 0 1px rgba(255, 255, 255, 0.4);
   }
   
   &:active {
@@ -139,11 +157,60 @@ $font-accent: 'Cinzel', serif;
 @mixin fantasy-heading {
   font-family: $font-heading;
   color: $text-dark;
-  letter-spacing: 2px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  letter-spacing: 1.5px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  line-height: 1.2;
+}
+
+// Light heading for dark backgrounds
+@mixin fantasy-heading-light {
+  font-family: $font-heading;
+  color: $text-white;
+  letter-spacing: 1.5px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+  line-height: 1.2;
 }
 
 @mixin fantasy-text {
   font-family: $font-text;
   color: $text-medium;
+  font-size: 1.1rem;
+  line-height: 1.5;
+}
+
+@mixin fantasy-light-text {
+  font-family: $font-text;
+  color: $text-white;
+  font-size: 1.1rem;
+  line-height: 1.5;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+@mixin fantasy-dark-container {
+  background-color: rgba(30, 20, 45, 0.85);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  padding: 1.5rem;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+}
+
+@mixin focus-outline {
+  outline: 3px solid rgba(255, 215, 0, 0.5);
+  outline-offset: 2px;
+}
+
+// App header mixin
+@mixin app-header {
+  background-color: $bg-header;
+  border-bottom: 2px solid $accent-gold;
+  padding: 10px 0;
+  text-align: center;
+  
+  h1 {
+    @include fantasy-heading-light;
+    margin: 0;
+    font-size: 24px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+  }
 }

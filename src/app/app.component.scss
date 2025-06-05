@@ -1,4 +1,22 @@
 @import '../styles/theme.scss';
+.app-title-bar {
+  background-color: #1a102f; // Dark purple background
+  padding: 10px 0;
+  text-align: center;
+  border-bottom: 2px solid #ffd700; // Gold border for separation
+  
+  h1 {
+    color: #ffffff; // Pure white for maximum contrast
+    font-family: 'Cinzel Decorative', cursive;
+    margin: 0;
+    font-size: 24px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    // Text shadow helps text stand out on dark background
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+  }
+}
 
 .fantasy-app-container {
   min-height: 100vh;
@@ -6,9 +24,28 @@
   flex-direction: column;
 }
 
+// App name header with high contrast
+.app-name-header {
+  background-color: $bg-header;
+  border-bottom: 2px solid $accent-gold;
+  padding: 10px 0;
+  
+  h1 {
+    color: $text-white;
+    margin: 0;
+    font-size: 24px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    text-align: center;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+  }
+}
+
 .fantasy-header {
   padding: 1rem 2rem;
   position: relative;
+  background-color: rgba($bg-dark, 0.9);
   
   .header-content {
     display: flex;
@@ -21,7 +58,7 @@
   .app-title {
     font-size: 2rem;
     margin: 0;
-    color: #fff;
+    color: $text-white;
     text-shadow: 0 0 10px rgba(255, 215, 0, 0.7),
                 0 0 20px rgba(76, 42, 122, 0.5);
   }
@@ -31,7 +68,7 @@
     gap: 1.5rem;
     
     .nav-link {
-      color: #fff;
+      color: $text-white;
       text-decoration: none;
       font-family: $font-accent;
       font-size: 1.1rem;
@@ -56,10 +93,11 @@
       
       &.active {
         font-weight: 700;
+        color: $accent-gold;
         
         &::after {
           width: 100%;
-          background-color: gold;
+          background-color: $accent-gold;
         }
       }
     }
@@ -92,7 +130,8 @@
 .fantasy-footer {
   text-align: center;
   padding: 1.5rem;
-  color: rgba(255, 255, 255, 0.7);
+  color: $text-white;
+  background-color: rgba($bg-dark, 0.9);
   font-family: $font-text;
   
   .footer-ornament {
@@ -105,13 +144,12 @@
       content: '';
       display: block;
       height: 1px;
-      background: linear-gradient(to right, transparent, rgba(255, 215, 0, 0.5), transparent);
+      background: linear-gradient(to right, transparent, rgba(255, 215, 0, 0.7), transparent);
       margin-bottom: 1rem;
     }
   }
 }
 
-// Responsive adjustments
 @media (max-width: 768px) {
   .fantasy-header .header-content {
     flex-direction: column;
